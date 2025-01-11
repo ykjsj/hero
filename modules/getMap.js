@@ -1,5 +1,6 @@
 var getMap = {};
 
+
 getMap.matchImage = function (imagePat, scale) {
     // 参数验证
     if (!imagePat || typeof imagePat !== 'string') {
@@ -57,7 +58,7 @@ getMap.matchImage = function (imagePat, scale) {
 
     // 处理匹配结果
     if (result) {
-        toastLog(`匹配成功，耗时: ${end - start}ms`);
+        //toastLog(`匹配成功，耗时: ${end - start}ms`);
         const properties = [
             result.topLeft,
             result.topRight,
