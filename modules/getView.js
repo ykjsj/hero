@@ -1,17 +1,14 @@
 var to = {};
-while(true){
-    if (!requestScreenCapture()) {
-        sleep(1000)
-    //toast("请求截图失败,重试");
-    //exit();
-    }else{
-        break
-    }
-}
+// sleep(1000)
+// if (!requestScreenCapture()) {
+//     toast("请求截图失败");
+//     exit();
+// }
+
 var getMap = require('./getMap.js');
 
 to.get = function (path){
-    sleep(2000)
+    sleep(500)
     //var getMap = require('./getMap.js');
     //var getMap = require(js);
     //let imagePath = './暴走英雄坛图片库/游戏登录/1.png';
@@ -30,7 +27,7 @@ to.get = function (path){
     }
 }
 to.click = function (path){
-    sleep(2000)
+    sleep(500)
     //var getMap = require('./getMap.js');
     //var getMap = require(js);
     //let imagePath = './暴走英雄坛图片库/游戏登录/1.png';
@@ -63,15 +60,18 @@ to.clickS = function (index, images) {
         return to.clickS(index, images); // 重试当前操作
     } else {
         toastLog(`点击成功`);
-        an = to.get(image)
         //log(an)
-        if(an){
-            toastLog(`检测到还是原页面，开始重试`);
-            if (to.click(image)){
-                log("重试成功！")
+        while(true){
+            if(to.get(image)){
+                toastLog(`检测到还是原页面，开始重试`);
+                if (to.click(image)){
+                    log("重试成功！")
+                }else{
+                    toastLog(`重试失败，再来一次`);
+                    return to.clickS(index, images);
+                }
             }else{
-                toastLog(`重试失败，再来一次`);
-                return to.clickS(index, images);
+                break
             }
         }
         return to.clickS(index + 1, images); // 继续下一个操作

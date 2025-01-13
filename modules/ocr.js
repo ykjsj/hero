@@ -17,7 +17,7 @@ function createPadd(){
 }
 
 ocr.click = function (txt){
-    sleep(1000)
+    sleep(500)
     //o = createMLK();
     let capture = captureScreen();
     let result = o.detect(capture);
@@ -52,7 +52,7 @@ ocr.click = function (txt){
     }
 }
 ocr.get = function (txt){
-    sleep(3000)
+    sleep(500)
     //o = createMLK();
     let capture = captureScreen();
     let result = o.detect(capture);
@@ -83,7 +83,7 @@ ocr.get = function (txt){
     }
 }
 ocr.getInone = function (txtArray){
-    sleep(3000)
+    sleep(500)
     //o = createMLK();
     let capture = captureScreen();
     let result = o.detect(capture);
@@ -99,17 +99,17 @@ ocr.getInone = function (txtArray){
                 text = a
                 r = true;
             }else{
-                if (a == 'loading...100%' || a == 'loading....'){
+                if (a.includes('loading.') || a.includes('适龄提示') || a.includes('与服务器通讯中')){
                     thing = true
                 }
                 // log(txt)
-                // log("a:",a)
+                //log("a:",a)
             }
         });
     });
     if (thing && r==false){
         //o.release();
-        return ocr.get(txt)
+        return ocr.getInone(txtArray)
     }
     //o.release();
     if (r){
@@ -119,7 +119,7 @@ ocr.getInone = function (txtArray){
     }
 }
 ocr.getSone = function (txtArray){
-    sleep(3000)
+    sleep(500)
     //o = createMLK();
     let capture = captureScreen();
     let result = o.detect(capture);

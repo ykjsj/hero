@@ -1,10 +1,13 @@
 var state = {};
-var getView = require('./getView.js');
-var ocr = require('./ocr.js');
+//var ocr = require('./ocr.js');
+
 state.login = function(){
     var get_login_close_png = './暴走英雄坛图片库/游戏登录/close.png'
     let gg = "游戏公告"
-    while(true){
+    if (ocr.click("进入游戏")){
+        log("===")
+    }else{
+        while(true){
             var th =ocr.get(gg)
             if(th){
                 break
@@ -14,7 +17,10 @@ state.login = function(){
             get_login_close_png
         ];
         getView.clickS(0,images)
-    ocr.click("进入游戏")
+        ocr.click("进入游戏")
+        return state.get()
+    }
+    
 }
 state.get = function(){
     const ztai = [
@@ -27,32 +33,37 @@ state.get = function(){
         if (e.includes("练武")){
             log("检测到目前正在打木桩")
             var get_4 = path + '/页面图标/打桩返回.png';
-            var y = getView.click(get_4)
-            if(y){
-                log("成功点击返回")
-                var th2 = n3.click("暂时离开")
-                if (th2){
-                    log("成功点击")
+            while(true){
+                if(getView.click(get_4)){
+                    if (ocr.click("暂时离开")){
+                        log("成功点击")
+                        break
+                    }else{
+                        getView.click(get_4)
+                        log("失败")
+                    }
                 }else{
-                    log("失败")
+                    log("未能点击返回")
                 }
-            }else{
-                log("未能点击返回")
             }
         }else if(e.includes("打坐")){
             log("检测到目前正在打坐")
             var get_4 = path + '/页面图标/打桩返回.png';
-            var c = [get_4];
-            var x = getView.clickS(0,c)
+            var x = getView.click(get_4)
             if (x){
                 log("成功点击返回")
+                if (!getView.click(get_4)){
+                    log("返回失败")
+                }
             }else{
                 log("未能点击返回")
             }
         }
+    }else if(ocr.get("收工")){
+        ocr.click("我知道了")
     }
     log("目前没有挂机，正在识别地图。。。")
-    if(ocr.get("滑动")){
+    if(ocr.get("任务") || ocr.get("滑动")){
         const maP = [
             "平安镇中心",
             "平安镇东",
@@ -70,7 +81,7 @@ state.get = function(){
             return b
         }else{
             log("识别失败")
-            re
+            return false
         }
     }else{
         log("目前不是地图界面")
