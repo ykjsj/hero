@@ -1,4 +1,5 @@
 path = './暴走英雄坛图片库'
+sleep(1000)
 launch("com.maple.madherogo");
 sleep(1000)
 var mydefine = require('./ini.js');
@@ -7,6 +8,7 @@ mydefine.get()
 
 // 调用初始化方法
 var getView = require('./modules/getView.js');
+//var raPng = require('./modules/ramPng.js');
 var ocr = require('./modules/ocr.js');
 var state = require('./modules/state.js');
 
@@ -24,7 +26,7 @@ if (!nh){
         log("未能识别游戏状态")
     }
 }
-var get_xdtsb1 = './暴走英雄坛图片库/小地图识别/每日任务.png'
+var get_xdtsb1 = './暴走英雄坛图片库/小地图识别/2.png'
 var get_xdtsb2 = './暴走英雄坛图片库/小地图识别/驿站.png'
 var get_xdtclo = './暴走英雄坛图片库/小地图识别/close.png'
 var images = [
@@ -33,16 +35,18 @@ var images = [
 ];
 if (nh){
     ocr.click(nh)
+    sleep(random(300, 1000))
+    swipe(200, 1000, 700, 1000, 1000);
     getView.click(get_xdtsb1)
-    getView.click(get_xdtclo)
+    getView.clickone(get_xdtclo)
 }else{
     log("未能点击每日任务")
 }
-if(getView.click(get_xdtsb2)){
-    log("成功点击小驿站")
-    sleep(1000)
-    getView.click(get_xdtclo)
-}
+// if(getView.click(get_xdtsb2)){
+//     log("成功点击小驿站")
+//     sleep(1000)
+//     getView.click(get_xdtclo)
+// }
 var get_png_2 = './暴走英雄坛图片库/地图标志物/告示牌.png'
 if(getView.click(get_png_2)){
     log("成功点击告示牌")
