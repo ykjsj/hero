@@ -19,7 +19,7 @@ to.get = function (path){
         if (result){
             return true
         }else{
-            toast("未找到")
+            //toast("未找到")
             return false
         }
     }catch(error){
@@ -39,7 +39,7 @@ to.click = function (path){
             click(result.x,result.y)
             return true
         }else{
-            toast("未找到")
+            //toast("未找到")
             return false
         }
     }catch(error){
@@ -90,7 +90,7 @@ to.click_xiaoditu = function (path){
             click(result.x,result.y)
             return true
         }else{
-            toast("未找到")
+            //toast("未找到")
             return false
         }
     }catch(error){
@@ -106,6 +106,9 @@ to.clickone = function (images) {
     } else {
         toastLog(`点击成功`);
         while(true){
+            if(!to.get(image)){
+                break
+            }
             if(to.get(image)){
                 toastLog(`检测到还是原页面，开始重试`);
                 if (to.click(image)){
@@ -114,8 +117,6 @@ to.clickone = function (images) {
                     toastLog(`重试失败，再来一次`);
                     return to.clickone(images);
                 }
-            }else{
-                break
             }
         }
         return true

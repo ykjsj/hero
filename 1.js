@@ -1,12 +1,13 @@
-"nodejs";
-const plugins = require('plugins');
-const MLKitOCR = await plugins.load('org.autojs.autojspro.plugin.mlkit.ocr');
-const ocr = new MLKitOCR();
-var mario = images.read("./暴走英雄坛图片库/地图位置判断/打木桩中.png");
-if(mario){
-    log("111")
-}else{
-    log("222")
-}
-const result = await ocr.detect(mario);
-console.log(result);
+"auto";
+setScreenMetrics(device.width, device.height); // 动态设置屏幕分辨率
+
+// 定义比例
+let xRatio = 100 / 1080; // 水平方向比例（从左边缘向右偏移）
+let yRatio = 150 / 1920; // 垂直方向比例（从下边缘向上偏移）
+
+// 动态计算坐标
+let x = device.width * xRatio; // 水平方向坐标
+let y = device.height - (device.height * yRatio); // 垂直方向坐标（从底部向上偏移）
+
+// 点击计算的位置
+click(x, y);

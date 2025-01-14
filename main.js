@@ -1,5 +1,4 @@
 path = './暴走英雄坛图片库'
-sleep(1000)
 launch("com.maple.madherogo");
 sleep(1000)
 var mydefine = require('./ini.js');
@@ -11,7 +10,8 @@ var getView = require('./modules/getView.js');
 //var raPng = require('./modules/ramPng.js');
 var ocr = require('./modules/ocr.js');
 var state = require('./modules/state.js');
-
+var detect = require('./modules/detect.js')
+var dianji = require('./modules/dianji.js')
 
 var get_login_close_png = path + '/游戏登录/close.png';
 var png = path + '/游戏登录/游戏启动.png'
@@ -28,36 +28,219 @@ if (!nh){
 }
 var get_xdtsb1 = './暴走英雄坛图片库/小地图识别/2.png'
 var get_xdtsb2 = './暴走英雄坛图片库/小地图识别/驿站.png'
+var get_xdtsb3 = './暴走英雄坛图片库/小地图识别/3.png'
+var get_xdtsb5 = './暴走英雄坛图片库/小地图识别/5.png'
 var get_xdtclo = './暴走英雄坛图片库/小地图识别/close.png'
+var g1 = path + '/小地图识别/4.png';
+var get_ddtsb1 = './暴走英雄坛图片库/大地图识别/1.png'
+var get_ddtsb2 = './暴走英雄坛图片库/大地图识别/宝箱.png'
+var get_ddtsb3 = './暴走英雄坛图片库/大地图识别/2.png'
 var images = [
     get_xdtsb1,
     get_xdtclo
 ];
-if (nh){
-    ocr.click(nh)
-    sleep(random(300, 1000))
-    swipe(200, 1000, 700, 1000, 1000);
-    getView.click(get_xdtsb1)
-    getView.clickone(get_xdtclo)
-}else{
-    log("未能点击每日任务")
-}
-// if(getView.click(get_xdtsb2)){
-//     log("成功点击小驿站")
-//     sleep(1000)
-//     getView.click(get_xdtclo)
-// }
-var get_png_2 = './暴走英雄坛图片库/地图标志物/告示牌.png'
-if(getView.click(get_png_2)){
-    log("成功点击告示牌")
-}else{
-    log("未能点击告示牌")
-}
-var get_png = './暴走英雄坛图片库/地图标志物/驿站.png'
-var hh = getView.click(get_png)
-if (hh){
-    log("成功点击驿站")
-}else{
-    log("没有点击驿站")
+let task = 0
+while(true){
+    if (nh == '平安镇中心'){
+        ocr.click(nh)
+        sleep(random(300, 1000))
+        //random(153, 238), random(948, 1089), random(172, 218), random(920, 1027)
+        swipe(random(153, 238), random(948, 1089), random(683, 719), random(920, 1027),random(800, 1027))
+        //swipe(200, 1000, 700, 1000, 1000);
+        getView.click(get_xdtsb1)
+        getView.clickone(get_xdtclo)
+        var get_png_2 = './暴走英雄坛图片库/地图标志物/告示牌.png'
+        var ggg = path + '/页面图标/刷新.png';
+        var eee = path + '/页面图标/2.png';
+        var lll = path + '/页面图标/close.png';
+        while(true){
+            if(getView.click(get_png_2)){
+                while(true){
+                    if(getView.get(ggg)){
+                        break
+                    }
+                    if(getView.get(lll)){
+                        getView.click(lll)
+                    }
+                    if(getView.get(get_png_2)){
+                        getView.click(get_png_2)
+                    }
+                    break
+                }
+                
+                log("成功点击告示牌")
+                while(true){
+                    if(ocr.get('聊天')){
+                        continue
+                    }
+                    if(!ocr.get('民间传闻')){
+                        log('=======================================')
+                        if(ocr.get('宝箱')){
+                            task = 1
+                            log("识别到宝箱任务")
+                        }else if(ocr.get('镖局')){
+                            task = 2
+                            log('识别到运镖任务')
+                        }else if(ocr.get('四大恶人')){
+                            task = 3
+                            log('识别到四大恶人任务')
+                        }else if(ocr.get('迷失的世界')){
+                            task = 4
+                            log('识别到迷失的世界任务')
+                        }else{
+                            log("识别到其他任务，你去看看")
+                        }
+                        var g = path + '/页面图标/2.png';
+                        getView.clickone(g)
+                        break
+                    }else{
+                        getView.click(ggg)
+                    }
+                }
+                break
+            }else{
+                log("未能点击告示牌")
+            }
+        }
+        switch (task){
+            case 1:
+                log('进入1任务')
+                ocr.click(nh)
+                getView.click(get_xdtsb3)
+                getView.clickone(get_xdtclo)
+                cyz()
+                getView.click(get_ddtsb1)
+                while(true){
+                    if(detect.dy()){
+                        if(getView.get(get_ddtsb2)){
+                            getView.clickone(get_ddtsb2)
+                            log("成功点击宝箱")
+                        }else{
+                            log('没有识别到宝箱')
+                        }
+                        break
+                    }
+                }
+                
+                break;
+            case 2:
+                log('进入2任务')
+                ocr.click(nh)
+                //getView.click(get_xdtsb3)
+                getView.click(g1)
+                getView.clickone(get_xdtclo)
+                var getbs = './暴走英雄坛图片库/npc/镖师.png'
+                while(true){
+                    getView.click(getbs)
+                    if (!ocr.get('拜托大侠')){
+                        if(ocr.get('跳过剧情')){
+                            ocr.click('跳过剧情')
+                        }else{
+                            continue
+                        }
+                    }
+                    break
+                }
+                while(true){
+                    ocr.click(nh)
+                    if(getView.get(getbs)){
+                        continue
+                    }
+                    break
+                }
+                ocr.click(nh)
+                getView.click(get_xdtsb3)
+                getView.clickone(get_xdtclo)
+                cyz()
+                break;
+            case 3:
+                log('进入任务3')
+                ocr.click(nh)
+                var getzz = './暴走英雄坛图片库/npc/镇长.png'
+                getView.click(get_xdtsb5)
+                getView.clickone(get_xdtclo)
+                getView.clickone(getzz)
+                ocr.click('交谈')
+                while(true){
+                    if(ocr.get('跳过剧情')){
+                        ocr.click('跳过剧情')
+                        dianji.zuoxia()
+                    }else{
+                        if(getView.get(getzz)){
+                            break
+                        }
+                    }
+                }
+                break;
+            case 4:
+                log('进入任务4')
+                ocr.click(nh)
+                getView.click(get_xdtsb3)
+                getView.clickone(get_xdtclo)
+                cyz()
+                getView.click(get_ddtsb3)
+                break;
+            default:
+                log('执行完成！！')
+        }
+        break
+    }else{
+        var get_png = './暴走英雄坛图片库/地图标志物/驿站.png'
+        var h = getView.click(get_png)
+        if(h){
+            ocr.click('平安镇')
+            nh = '平安镇中心'
+        }else{
+            log("未能点击驿站")
+            break
+        }
+    }
 }
 
+log("脚本完成！！！")
+
+function cyz(){
+    while(true){
+        var get_png = './暴走英雄坛图片库/地图标志物/驿站.png'
+        var hh = getView.click(get_png)
+        if (hh){
+            log("成功点击驿站")
+            while(true){
+                if(ocr.click('太极山')){
+                    var get_pn = './暴走英雄坛图片库/地图标志物/太极山出口.png'
+                    while(true){
+                        getView.click(get_pn)
+                        if(ocr.get('太极山')){
+                            continue
+                        }
+                        swipe(700, 1000, 700, 1500, 400);
+                        break
+                    }
+                    break
+                }
+            }
+            break
+        }else{
+            log("没有点击驿站")
+        }
+    }
+}
+
+
+// if(!getView.get(ggg)){
+//     getView.clickone(get_png_2)
+//     while(true){
+//         if(!getView.get(eee)){
+//             ocr.click(nh)
+//             //sleep(random(300, 1000))
+//             //random(153, 238), random(948, 1089), random(172, 218), random(920, 1027)
+//             swipe(random(153, 238), random(948, 1089), random(683, 719), random(920, 1027),random(800, 1027))
+//             //swipe(200, 1000, 700, 1000, 1000);
+//             getView.click(get_xdtsb1)
+//             getView.clickone(get_xdtclo)
+//             getView.click(get_png_2)
+//         }else{
+//             break
+//         }
+//     }
+// }

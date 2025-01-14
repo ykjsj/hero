@@ -73,7 +73,7 @@ getMap.matchImage = function (imagePat, scale) {
         const randomProperty = result.center
         return randomProperty;
     } else {
-        toastLog("未找到匹配结果");
+        //toastLog("未找到匹配结果");
         return null;
     }
 };
@@ -140,7 +140,7 @@ getMap.result = function (imagePat, scale) {
         //randomProperty = result.center
         return randomProperty;
     } else {
-        toastLog("未找到匹配结果");
+        //toastLog("未找到匹配结果");
         return null;
     }
 };

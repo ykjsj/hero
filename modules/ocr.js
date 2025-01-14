@@ -65,7 +65,7 @@ ocr.get = function (txt){
             //log("成功匹配上ocr")
             r = true
         }else{
-            if (a == 'loading...100%' || a == 'loading....'){
+            if (a.includes('loading.') || a.includes('适龄提示') || a.includes('与服务器通讯中')){
                 thing = true
             }
             //log(a)
