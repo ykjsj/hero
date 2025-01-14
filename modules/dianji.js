@@ -1,4 +1,4 @@
-"auto";
+
 
 var dianji = {};
 dianji.zuoxia = function dianjizuoxiajiao(){

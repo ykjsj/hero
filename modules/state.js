@@ -1,4 +1,5 @@
 
+
 var state = {};
 //var ocr = require('./ocr.js');
 
@@ -18,7 +19,14 @@ state.login = function(){
             get_login_close_png
         ];
         getView.clickS(0,images)
-        ocr.click("进入游戏")
+        while(true){
+            ocr.click("进入游戏")
+            if(!ocr.get('进入游戏')){
+                break
+            }
+        }
+        
+
         return state.get()
     }
     

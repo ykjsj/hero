@@ -1,4 +1,6 @@
+"auto";
 path = './暴走英雄坛图片库'
+
 launch("com.maple.madherogo");
 sleep(1000)
 var mydefine = require('./ini.js');
@@ -31,10 +33,12 @@ var get_xdtsb2 = './暴走英雄坛图片库/小地图识别/驿站.png'
 var get_xdtsb3 = './暴走英雄坛图片库/小地图识别/3.png'
 var get_xdtsb5 = './暴走英雄坛图片库/小地图识别/5.png'
 var get_xdtclo = './暴走英雄坛图片库/小地图识别/close.png'
+var get_cjm = './暴走英雄坛图片库/小地图识别/出家门.png'
 var g1 = path + '/小地图识别/4.png';
 var get_ddtsb1 = './暴走英雄坛图片库/大地图识别/1.png'
 var get_ddtsb2 = './暴走英雄坛图片库/大地图识别/宝箱.png'
 var get_ddtsb3 = './暴走英雄坛图片库/大地图识别/2.png'
+var get_cjm_2 = './暴走英雄坛图片库/地图标志物/出家门.png'
 var images = [
     get_xdtsb1,
     get_xdtclo
@@ -185,6 +189,12 @@ while(true){
         }
         break
     }else{
+        if (nh == '家'){
+            ocr.click(nh)
+            getView.click(get_cjm)
+            getView.clickone(get_xdtclo)
+            getView.click(get_cjm_2)
+        }
         var get_png = './暴走英雄坛图片库/地图标志物/驿站.png'
         var h = getView.click(get_png)
         if(h){
