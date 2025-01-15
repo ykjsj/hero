@@ -1,8 +1,10 @@
 var mydefine = require('./ini.js');
 mydefine.get()
+var dianji = require('./modules/dianji.js');
 var getView = require('./modules/getView.js');
 var ocr = require('./modules/ocr.js')
 var sy = './暴走英雄坛图片库/操作图标/使用.png'
+var mz = './暴走英雄坛图片库/操作图标/maozi.png'
 var get_4 = './暴走英雄坛图片库/页面图标/打桩返回.png';
 while(true){
     ocr.click('角色')
@@ -13,15 +15,39 @@ while(true){
             if(ocr.get('治疗')){
                 ocr.click('治疗')
                 ocr.click('疗伤')
-                if(!ocr.get("内伤")){
+                if(!getView.get(mz)){
+                    while(true){
+                        dianji.zuoxia()
+                        if(ocr.get('内伤')){
+                            continue
+                        }
+                        while(true){
+                            if(ocr.get('吸气')){
+                                ocr.click("吸气")
+                                if(ocr.get('吸气')){
+                                    continue
+                                }
 
-                    if(ocr.get('吸气')){
-                        ocr.click("吸气")
+                            }
+                            break
+                        }
+                        while(true){
+                            if(!ocr.get('吸气')){
+                                continue
+                            }
+                            log('过了检测生命')
+                            break
+                        }
+                        break
                     }
-                }else if(ocr.get('疗伤')){
-                    ocr.click('疗伤')
                 }else{
-                    log('未知。。。。。。需要调试')
+                    while(true){
+                        if(!ocr.get('吸气')){
+                            continue
+                        }
+                        log('过了检测生命')
+                        break
+                    }
                 }
                 
                 
@@ -30,9 +56,6 @@ while(true){
             }
             break
         }
-        
-        
-        
         neili()
         getView.clickone(get_4)
         

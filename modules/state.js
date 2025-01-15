@@ -96,6 +96,7 @@ state.get = function(){
             "万毒林",
             "雪焰岛渡口",
             "少室山脚",
+            "君山广场",
             "家"
         ];
         let b = ocr.getSone(maP)

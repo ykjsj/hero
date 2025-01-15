@@ -68,7 +68,7 @@ ocr.get = function (txt){
             if (a.includes('loading.') || a.includes('适龄提示') || a.includes('与服务器通讯中')){
                 thing = true
             }
-            log(a)
+            //log(a)
         }
     });
     if (thing && r==false){

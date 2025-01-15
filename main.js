@@ -39,6 +39,9 @@ var daMap1 = './暴走英雄坛图片库/大地图识别/大寻路1.png'
 var daMap2 = './暴走英雄坛图片库/大地图识别/大寻路2.png'
 var daMap3 = './暴走英雄坛图片库/大地图识别/大寻路3.png'
 var daMap4 = './暴走英雄坛图片库/大地图识别/大寻路4.png'
+var daMap5 = './暴走英雄坛图片库/大地图识别/大寻路5.png'
+var daMap6 = './暴走英雄坛图片库/大地图识别/大寻路6.png'
+var daMap7 = './暴走英雄坛图片库/大地图识别/大寻路7.png'
 var get_ddtsb1 = './暴走英雄坛图片库/大地图识别/大地图宝箱寻路1.png'
 var get_ddtsb1_2 = './暴走英雄坛图片库/大地图识别/大地图宝箱寻路2.png'
 var get_ddtsb1_3 = './暴走英雄坛图片库/大地图识别/大地图宝箱寻路3.png'
@@ -81,6 +84,8 @@ while(true){
                     }
                     if(getView.get(get_png_2)){
                         getView.click(get_png_2)
+                    }else{
+                        continue
                     }
                     break
                 }
@@ -126,28 +131,26 @@ while(true){
                 getView.click(get_xdtsb3)
                 getView.clickone(get_xdtclo)
                 t1()
-                //cyz()
                 baoxiang()
+                // const daMaps = [
+                //     { thing: daMap1, thing2: daMap2 },
+                //     { thing: daMap2, thing2: daMap3 },
+                //     { thing: daMap3, thing2: daMap4 },
+                //     { thing: daMap4, thing2: daMap5 }, // thing2 未传递
+                //     { thing: daMap6, thing2: daMap7 }
+                // ];
+                // daMaps.forEach(({ thing, thing2 }) => {
+                //     dadituxunlu(thing, thing2);
+                //     baoxiang();
+                // });
                 dadituxunlu(daMap1,daMap2)
                 baoxiang()
                 dadituxunlu(daMap2,daMap3)
                 baoxiang()
                 dadituxunlu(daMap3,daMap4)
                 baoxiang()
-                // getView.click(get_ddtsb1)
-                // baoxiang()
-                // dadituxunlu(get_ddtsb1_2)
-                // baoxiang()
-                // dadituxunlu(get_ddtsb1_3)
-                // baoxiang()
-                // dadituxunlu(get_ddtsb1_4)
-                // baoxiang()
-                // dadituxunlu(get_ddtsb1_5)
-                // baoxiang()
-                // dadituxunlu(get_ddtsb1_6)
-                // baoxiang()
-                // dadituxunlu(get_ddtsb1_7)
-                // baoxiang()
+                dadituxunlu(daMap4)
+                baoxiang()
                 break;
             case 2:
                 log('进入2任务')
@@ -196,16 +199,42 @@ while(true){
                 break;
             case 3:
                 log('进入任务3')
+                
                 ocr.click(nh)
                 var getzz = './暴走英雄坛图片库/npc/镇长.png'
-                getView.click(get_xdtsb5)
-                getView.clickone(get_xdtclo)
-                getView.clickone(getzz)
+                while(true){
+                    getView.click(get_xdtsb5)
+                    getView.clickone(get_xdtclo)
+                    getView.click(getzz)
+                    if(!getView.get(getzz)){
+                        continue
+                    }
+                    //swipe(700, 1000, 700, 1500, 400);
+                    while(true){
+                        if(!ocr.get('交谈')){
+                            while(true){
+                                if(detect.dy()){
+                                    getView.click(getzz)
+                                }
+                                if(!ocr.get('交谈')){
+                                    continue
+                                }
+                                break
+                            }
+                            
+                        }
+                        break
+                    }
+                    
+                    break
+                }
+                
                 ocr.click('交谈')
                 while(true){
                     if(ocr.get('跳过剧情')){
                         ocr.click('跳过剧情')
                         dianji.zuoxia()
+                        log('过了点右下角')
                     }else{
                         if(getView.get(getzz)){
                             break
@@ -223,6 +252,9 @@ while(true){
                 while(true){
                     if(detect.dy()){
                         dianji.zhongjian()
+                    }
+                    if(ocr.get('聊天')){
+
                     }
                     if(ocr.get('跳过剧情')){
                         ocr.click('跳过剧情')
@@ -265,8 +297,8 @@ function dadituxunlu(thing,thing2){
     while(true){
         if(detect.dy()){
             getView.click(thing)
-            if(!getView.get(thing2)){
-                continue
+            if (thing2 && !getView.get(thing2)) {
+                continue;
             }
             break
         }
