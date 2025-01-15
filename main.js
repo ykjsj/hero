@@ -6,7 +6,7 @@ sleep(1000)
 var mydefine = require('./ini.js');
 mydefine.get()
 
-
+var map = '';
 // 调用初始化方法
 var getView = require('./modules/getView.js');
 //var raPng = require('./modules/ramPng.js');
@@ -35,7 +35,17 @@ var get_xdtsb5 = './暴走英雄坛图片库/小地图识别/5.png'
 var get_xdtclo = './暴走英雄坛图片库/小地图识别/close.png'
 var get_cjm = './暴走英雄坛图片库/小地图识别/出家门.png'
 var g1 = path + '/小地图识别/4.png';
-var get_ddtsb1 = './暴走英雄坛图片库/大地图识别/1.png'
+var daMap1 = './暴走英雄坛图片库/大地图识别/大寻路1.png'
+var daMap2 = './暴走英雄坛图片库/大地图识别/大寻路2.png'
+var daMap3 = './暴走英雄坛图片库/大地图识别/大寻路3.png'
+var daMap4 = './暴走英雄坛图片库/大地图识别/大寻路4.png'
+var get_ddtsb1 = './暴走英雄坛图片库/大地图识别/大地图宝箱寻路1.png'
+var get_ddtsb1_2 = './暴走英雄坛图片库/大地图识别/大地图宝箱寻路2.png'
+var get_ddtsb1_3 = './暴走英雄坛图片库/大地图识别/大地图宝箱寻路3.png'
+var get_ddtsb1_4 = './暴走英雄坛图片库/大地图识别/大地图宝箱寻路4.png'
+var get_ddtsb1_5 = './暴走英雄坛图片库/大地图识别/大地图宝箱寻路5.png'
+var get_ddtsb1_6 = './暴走英雄坛图片库/大地图识别/大地图宝箱寻路6.png'
+var get_ddtsb1_7 = './暴走英雄坛图片库/大地图识别/大地图宝箱寻路7.png'
 var get_ddtsb2 = './暴走英雄坛图片库/大地图识别/宝箱.png'
 var get_ddtsb3 = './暴走英雄坛图片库/大地图识别/2.png'
 var get_cjm_2 = './暴走英雄坛图片库/地图标志物/出家门.png'
@@ -46,6 +56,9 @@ var images = [
 let task = 0
 while(true){
     if (nh == '平安镇中心'){
+        while(true){
+            break
+        }
         ocr.click(nh)
         sleep(random(300, 1000))
         //random(153, 238), random(948, 1089), random(172, 218), random(920, 1027)
@@ -79,7 +92,7 @@ while(true){
                     }
                     if(!ocr.get('民间传闻')){
                         log('=======================================')
-                        if(ocr.get('宝箱')){
+                        if(ocr.get('宝箱')||ocr.get('世界区域')){
                             task = 1
                             log("识别到宝箱任务")
                         }else if(ocr.get('镖局')){
@@ -112,37 +125,61 @@ while(true){
                 ocr.click(nh)
                 getView.click(get_xdtsb3)
                 getView.clickone(get_xdtclo)
-                cyz()
-                getView.click(get_ddtsb1)
-                while(true){
-                    if(detect.dy()){
-                        if(getView.get(get_ddtsb2)){
-                            getView.clickone(get_ddtsb2)
-                            log("成功点击宝箱")
-                        }else{
-                            log('没有识别到宝箱')
-                        }
-                        break
-                    }
-                }
-                
+                t1()
+                //cyz()
+                baoxiang()
+                dadituxunlu(daMap1,daMap2)
+                baoxiang()
+                dadituxunlu(daMap2,daMap3)
+                baoxiang()
+                dadituxunlu(daMap3,daMap4)
+                baoxiang()
+                // getView.click(get_ddtsb1)
+                // baoxiang()
+                // dadituxunlu(get_ddtsb1_2)
+                // baoxiang()
+                // dadituxunlu(get_ddtsb1_3)
+                // baoxiang()
+                // dadituxunlu(get_ddtsb1_4)
+                // baoxiang()
+                // dadituxunlu(get_ddtsb1_5)
+                // baoxiang()
+                // dadituxunlu(get_ddtsb1_6)
+                // baoxiang()
+                // dadituxunlu(get_ddtsb1_7)
+                // baoxiang()
                 break;
             case 2:
                 log('进入2任务')
+                var getbs = './暴走英雄坛图片库/npc/镖师.png'
                 ocr.click(nh)
                 //getView.click(get_xdtsb3)
-                getView.click(g1)
-                getView.clickone(get_xdtclo)
-                var getbs = './暴走英雄坛图片库/npc/镖师.png'
+                while(true){
+                    getView.click(g1)
+                    getView.clickone(get_xdtclo)
+                    if(getView.get(getbs)){
+                        continue
+                    }
+                    log('准备点击镖师')
+                    break
+                }
                 while(true){
                     getView.click(getbs)
-                    if (!ocr.get('拜托大侠')){
-                        if(ocr.get('跳过剧情')){
-                            ocr.click('跳过剧情')
-                        }else{
-                            continue
-                        }
+                    if(ocr.get('跳过剧情')){
+                        ocr.click('跳过剧情')
+                    }else if(ocr.get('拜托大侠')){
+                        ocr.click(nh)
+                    }else{
+                        continue
                     }
+                    // if (!ocr.get('拜托大侠')){
+                    //     if(ocr.get('跳过剧情')){
+                    //         ocr.click('跳过剧情')
+                    //     }else{
+                    //         continue
+                    //     }
+                    // }
+                    log('过了点击镖师')
                     break
                 }
                 while(true){
@@ -183,6 +220,16 @@ while(true){
                 getView.clickone(get_xdtclo)
                 cyz()
                 getView.click(get_ddtsb3)
+                while(true){
+                    if(detect.dy()){
+                        dianji.zhongjian()
+                    }
+                    if(ocr.get('跳过剧情')){
+                        ocr.click('跳过剧情')
+                        dianji.zuoxia()
+                    }
+                    
+                }
                 break;
             default:
                 log('执行完成！！')
@@ -198,7 +245,12 @@ while(true){
         var get_png = './暴走英雄坛图片库/地图标志物/驿站.png'
         var h = getView.click(get_png)
         if(h){
-            ocr.click('平安镇')
+            while(true){
+                ocr.click('平安镇')
+                if(ocr.get('平安镇中心')){
+                    break
+                }
+            }
             nh = '平安镇中心'
         }else{
             log("未能点击驿站")
@@ -209,6 +261,63 @@ while(true){
 
 log("脚本完成！！！")
 
+function dadituxunlu(thing,thing2){
+    while(true){
+        if(detect.dy()){
+            getView.click(thing)
+            if(!getView.get(thing2)){
+                continue
+            }
+            break
+        }
+    }
+}
+
+function baoxiang(){
+    while(true){
+        if(detect.dy()){
+            if(getView.get(get_ddtsb2)){
+                getView.clickone(get_ddtsb2)
+                log("成功点击宝箱")
+            }else{
+                log('没有识别到宝箱')
+            }
+            break
+        }
+    }
+}
+function t1(){
+    while(true){
+        var get_png = './暴走英雄坛图片库/地图标志物/驿站.png'
+        var hh = getView.click(get_png)
+        if (hh){
+            log("成功点击驿站")
+            while(true){
+                if(ocr.click('雪焰岛')){
+                    var get_pn = './暴走英雄坛图片库/地图标志物/雪焰岛出口.png'
+                    while(true){
+                        getView.click(get_pn)
+                        if(ocr.get('雪焰岛')){
+                            continue
+                        }
+                        while(true){
+                            if(!ocr.get('迷失的世界')){
+                                continue
+                            }
+                            swipe(700, 1000, 700, 1500, 300);
+                            break
+                        }
+                        break
+                    }
+                    break
+                }
+            }
+            break
+        }else{
+            log("没有点击驿站")
+        }
+    }
+}
 function cyz(){
     while(true){
         var get_png = './暴走英雄坛图片库/地图标志物/驿站.png'
@@ -223,7 +332,7 @@ function cyz(){
                         if(ocr.get('太极山')){
                             continue
                         }
-                        swipe(700, 1000, 700, 1500, 400);
+                        // swipe(700, 1000, 700, 1500, 400);
                         break
                     }
                     break

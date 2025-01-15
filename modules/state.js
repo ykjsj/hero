@@ -1,5 +1,4 @@
 
-
 var state = {};
 //var ocr = require('./ocr.js');
 
@@ -70,13 +69,19 @@ state.get = function(){
                     log("未能点击返回")
                 }
             }
-        }else if(ocr.get("收工")){
-            ocr.click("我知道了")
         }
+    }else if(ocr.get("收工")){
+        ocr.click("我知道了")
     }
     
     log("目前没有挂机，正在识别地图。。。")
-    if(ocr.get("任务") || ocr.get("滑动")){
+    let tt = ocr.get("滑动")
+    if(ocr.get("任务") || tt){
+        if(tt && !ocr.get('聊天')){
+            log('检测到没有上滑，开始上滑')
+            swipe(700, 1500, 700, 1000, 400);
+            
+        }
         const maP = [
             "平安镇中心",
             "平安镇东",
@@ -84,8 +89,13 @@ state.get = function(){
             "迷失的世界",
             "太极山脚",
             "大雪山脚",
+            "大雪山腰",
             "浴血道",
             "平安新村",
+            "华山之藏",
+            "万毒林",
+            "雪焰岛渡口",
+            "少室山脚",
             "家"
         ];
         let b = ocr.getSone(maP)

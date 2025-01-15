@@ -68,7 +68,7 @@ ocr.get = function (txt){
             if (a.includes('loading.') || a.includes('适龄提示') || a.includes('与服务器通讯中')){
                 thing = true
             }
-            //log(a)
+            log(a)
         }
     });
     if (thing && r==false){
@@ -168,6 +168,40 @@ ocr.getMapname = function (index, mapName) {
     } else {
         toastLog(`识别成功，继续下一个操作`);
         return mapName[index]
+    }
+}
+ocr.xy = function (txt){
+    sleep(500)
+    //o = createMLK();
+    let capture = captureScreen();
+    let result = o.detect(capture);
+    let r = false
+    let thing = false
+    result.forEach(element => {
+        a = element.text
+        //a == txt
+        if (a.includes(txt)) {
+            bounds = element.bounds
+            r = true
+        }else{
+            if (a == 'loading...100%' || a == '适龄提示' || a == 'loading....'){
+                thing = true
+            }
+            //log(a)
+        }
+    });
+    if (thing && r==false){
+        //o.release();
+        return ocr.get(txt)
+    }
+    //o.release();
+    if (r){
+        let randomX = random(bounds.left, bounds.right); // 在 left 和 right 之间生成随机 x
+        let randomY = random(bounds.top, bounds.bottom); // 在 top 和 bottom 之间生成随机 y
+        // 执行点击操作
+        return randomX,randomY
+    }else{
+        return false
     }
 }
 events.on("exit", function(){

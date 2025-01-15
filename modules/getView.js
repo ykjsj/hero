@@ -101,23 +101,16 @@ to.clickone = function (images) {
     let image = images;
     let result = to.click(image);
     if (!result) {
-        toastLog(`点击失败，重试`);
+        log(`点击失败，重试`);
         return to.clickone(images); // 重试当前操作
     } else {
-        toastLog(`点击成功`);
+        log(`点击成功`);
         while(true){
-            if(!to.get(image)){
-                break
-            }
+            to.click(image)
             if(to.get(image)){
-                toastLog(`检测到还是原页面，开始重试`);
-                if (to.click(image)){
-                    log("重试成功！")
-                }else{
-                    toastLog(`重试失败，再来一次`);
-                    return to.clickone(images);
-                }
+                continue
             }
+            break
         }
         return true
     }
