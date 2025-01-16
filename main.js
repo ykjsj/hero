@@ -34,7 +34,7 @@ var get_xdtsb3 = './暴走英雄坛图片库/小地图识别/3.png'
 var get_xdtsb5 = './暴走英雄坛图片库/小地图识别/5.png'
 var get_xdtclo = './暴走英雄坛图片库/小地图识别/close.png'
 var get_cjm = './暴走英雄坛图片库/小地图识别/出家门.png'
-var g1 = path + '/小地图识别/4.png';
+var g1 = path + '/小地图识别/6.png';
 var daMap1 = './暴走英雄坛图片库/大地图识别/大寻路1.png'
 var daMap2 = './暴走英雄坛图片库/大地图识别/大寻路2.png'
 var daMap3 = './暴走英雄坛图片库/大地图识别/大寻路3.png'
@@ -149,18 +149,20 @@ while(true){
                 baoxiang()
                 dadituxunlu(daMap3,daMap4)
                 baoxiang()
-                dadituxunlu(daMap4)
+                dadituxunlu(daMap4,daMap5)
                 baoxiang()
+                dadituxunlu(daMap5)
                 break;
             case 2:
                 log('进入2任务')
                 var getbs = './暴走英雄坛图片库/npc/镖师.png'
-                ocr.click(nh)
+                
                 //getView.click(get_xdtsb3)
                 while(true){
+                    ocr.click(nh)
                     getView.click(g1)
                     getView.clickone(get_xdtclo)
-                    if(getView.get(getbs)){
+                    if(!getView.get(getbs)){
                         continue
                     }
                     log('准备点击镖师')

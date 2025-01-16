@@ -42,6 +42,10 @@ while(true){
                     }
                 }else{
                     while(true){
+                        if(!ocr.get('100%')){
+                            ocr.click('疗伤')
+                            continue
+                        }
                         if(!ocr.get('吸气')){
                             continue
                         }
@@ -71,7 +75,6 @@ function neili(){
         while(true){
             if(ocr.get('最大')){
                 ocr.click("最大")
-                log('点击了最大')
                 getView.click(sy)
                 log('点击了使用')
             }else{

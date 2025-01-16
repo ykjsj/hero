@@ -101,8 +101,9 @@ to.clickone = function (images) {
     let image = images;
     let result = to.click(image);
     if (!result) {
-        log(`点击失败，重试`);
-        return to.clickone(images); // 重试当前操作
+        log(`检测不到当前图片，请检查`);
+        //return to.clickone(images); // 重试当前操作
+        return false
     } else {
         log(`点击成功`);
         while(true){
